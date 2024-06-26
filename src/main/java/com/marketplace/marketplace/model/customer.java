@@ -9,6 +9,7 @@ public class customer {
     private String email;
     private String alamat;
     private String no_hp;
+
     public String getId() {
         return id;
     }
@@ -39,7 +40,4 @@ public class customer {
     public void setNo_hp(String no_hp) {
         this.no_hp = no_hp;
     }
-
-
-
 }
