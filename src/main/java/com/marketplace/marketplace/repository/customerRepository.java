@@ -1,9 +1,9 @@
 package com.marketplace.marketplace.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.marketplace.marketplace.model.customer;
 
-public interface customerRepository extends MongoRepository<customer, String>{
+public interface customerRepository extends JpaRepository<customer, Long>{
 
 }
