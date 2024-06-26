@@ -4,21 +4,31 @@ import jakarta.persistence.Id;
 
 public class order {
     @Id
-    private Integer kode_transaksi;
+    private String id;
+
+    private String kode_transaksi;
     private String tanggal_pembelian;
-    private Integer kode_pelanggan;
-    private Integer kode_barang;
+    private String kode_pelanggan;
+    private String kode_barang;
     private Integer jumlah_barang;
     private Double subtotal;
     private Double total;
     private Double pembayaran;
     private Double kembalian;
 
-    public Integer getKode_transaksi() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getKode_transaksi() {
         return kode_transaksi;
     }
 
-    public void setKode_transaksi(Integer kode_transaksi) {
+    public void setKode_transaksi(String kode_transaksi) {
         this.kode_transaksi = kode_transaksi;
     }
 
@@ -30,19 +40,19 @@ public class order {
         this.tanggal_pembelian = tanggal_pembelian;
     }
 
-    public Integer getKode_pelanggan() {
+    public String getKode_pelanggan() {
         return kode_pelanggan;
     }
 
-    public void setKode_pelanggan(Integer kode_pelanggan) {
+    public void setKode_pelanggan(String kode_pelanggan) {
         this.kode_pelanggan = kode_pelanggan;
     }
 
-    public Integer getKode_barang() {
+    public String getKode_barang() {
         return kode_barang;
     }
 
-    public void setKode_barang(Integer kode_barang) {
+    public void setKode_barang(String kode_barang) {
         this.kode_barang = kode_barang;
     }
 
