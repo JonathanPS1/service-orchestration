@@ -16,4 +16,7 @@ public interface orderRepository extends MongoRepository<order, String> {
 
     @Query("{'kode_pelanggan' : ?0 }") // ?0 indeks parameter pertama
     List<order> findByPelanggan(String kodePelanggan);
+
+    @Query("{'tanggalPembelian' : ?0 }")
+    List<order>findByTglPembelian(String tanggalPembelian);
 }

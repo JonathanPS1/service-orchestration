@@ -94,4 +94,9 @@ public class orderController {
     public @ResponseBody Iterable<order> getPelanggan(@RequestParam String kodePelanggan) {
         return or.findByPelanggan(kodePelanggan);
     }
+
+    @PostMapping("/gettransaksi")
+    public @ResponseBody Iterable<order> getTransaksi(@RequestParam String tanggalPembelian) {
+        return or.findByTglPembelian(tanggalPembelian);
+    }
 }
