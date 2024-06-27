@@ -1,8 +1,11 @@
 package com.marketplace.marketplace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,54 +13,64 @@ import com.marketplace.marketplace.model.customer;
 import com.marketplace.marketplace.repository.customerRepository;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping(path ="/customer")
 public class customerController {
     @Autowired
     private customerRepository cr;
 
-    @GetMapping("/customer")
+    @GetMapping("/getcustomer")
     public @ResponseBody Iterable<customer> getAllCustomers() {
         return cr.findAll();
     }
 
-    @PostMapping("/addCustomer")
-    public @ResponseBody String addCustomer(Long id, String nama, String email, String alamat, String no_hp) {
-        if (id == null || nama == null || email == null || alamat == null || no_hp == null) {
-            return "Data customer tidak lengkap";
-        } else {
-            customer c = new customer();
+    @GetMapping("/getCustomer/{id}")
+    public @ResponseBody customer getCustomer(@PathVariable Long id) {
+        return cr.findById(id).get();
+    }
+
+    @PostMapping("updateCustomer/{id}")
+    public @ResponseBody boolean updateCustomer(@PathVariable Long id, @RequestBody customer c) {
+        if (cr.existsById(id)) {
             c.setId(id);
-            c.setNama(nama);
-            c.setEmail(email);
-            c.setAlamat(alamat);
-            c.setNo_hp(no_hp);
             cr.save(c);
-            return "Customer berhasil ditambahkan";
+            return true;
+        } else {
+            return false;
         }
     }
 
-    @PostMapping("/updateCustomer")
-    public @ResponseBody String updateCustomer(Long id, String nama, String email, String alamat, String no_hp) {
-        if (id == null || nama == null || email == null || alamat == null || no_hp == null) {
-            return "Data customer tidak lengkap";
-        } else {
-            customer c = cr.findById(id).get();
-            c.setNama(nama);
-            c.setEmail(email);
-            c.setAlamat(alamat);
-            c.setNo_hp(no_hp);
-            cr.save(c);
-            return "Customer berhasil diupdate";
-        }
-    }
-
-    @PostMapping("/deleteCustomer")
-    public @ResponseBody String deleteCustomer(Long id) {
-        if (id == null) {
-            return "ID customer tidak ditemukan";
-        } else {
+    @DeleteMapping("/deleteCustomer/{id}")
+    public @ResponseBody boolean deleteCustomer(@PathVariable Long id) {
+        if (cr.existsById(id)) {
             cr.deleteById(id);
-            return "Customer berhasil dihapus";
+            return true;
+        } else {
+            return false;
         }
+    }
+
+    @PostMapping("/addCustomer")
+    public @ResponseBody boolean addCustomer(@RequestBody customer c) {
+        // Generate ID baru
+        Long newId = cr.count() + 1;
+        c.setId(newId);
+
+        // Validasi nomor telepon dan email
+        if (isValidPhoneNumber(c.getNo_hp()) && isValidEmail(c.getEmail())) {
+            cr.save(c);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Method pembantu untuk validasi nomor telepon
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return phoneNumber.matches("\\d{12}");
+    }
+    
+    // Method pembantu untuk validasi email
+    private boolean isValidEmail(String email) {
+        return email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
     }
 }

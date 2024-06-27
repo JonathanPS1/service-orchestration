@@ -11,6 +11,7 @@ public class customer {
     private String email;
     private String alamat;
     private String no_hp;
+    
     public Long getId() {
         return id;
     }
