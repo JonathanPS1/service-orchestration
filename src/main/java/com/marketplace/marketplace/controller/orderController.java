@@ -30,7 +30,7 @@ public class orderController {
     }
 
     @PostMapping("/addOrder")
-    public @ResponseBody String addOrder(@RequestBody order o, Double harga_barang) {
+    public @ResponseBody boolean addOrder(@RequestBody order o, Double harga_barang) {
         // Mendapatkan tanggal hari ini
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -38,52 +38,53 @@ public class orderController {
 
         if (o.getPembayaran() >= o.getTotal()) {
             o.setTanggal_pembelian(formattedDate);
-            o.setSubtotal(o.getJumlah_barang() * harga_barang);
-            o.setTotal(harga_barang);
+            o.setTotal(o.getJumlah_barang() * harga_barang);
+            o.setKembalian(o.getPembayaran() - o.getTotal());
             or.insert(o);
-            return "Pembelian berhasil";
+            return true;
         } else {
-            return "Pembelian gagal";
+            return false;
         }
     }
 
     @PutMapping("/updateOrder/{kode_transaksi}")
-    public @ResponseBody String updateOrder(@PathVariable String kode_transaksi, @RequestBody order oBaru,
+    public @ResponseBody boolean updateOrder(@PathVariable String kode_transaksi, @RequestBody order oBaru,
             Double harga_barang) {
         if (or.existByKodeTransaksi(kode_transaksi)) {
-            // Mendapatkan tanggal hari ini
-            LocalDate today = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String formattedDate = today.format(formatter);
+            if (oBaru.getPembayaran() >= oBaru.getTotal()) {
+                // Mendapatkan tanggal hari ini
+                LocalDate today = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String formattedDate = today.format(formatter);
 
-            order oLama = or.findByKodeTransaksi(kode_transaksi).getFirst();
+                order oLama = or.findByKodeTransaksi(kode_transaksi).getFirst();
 
-            oLama.setKode_transaksi(kode_transaksi);
-            oLama.setTanggal_pembelian(formattedDate);
-            oLama.setKode_pelanggan(oBaru.getKode_pelanggan());
-            oLama.setKode_barang(oBaru.getKode_barang());
-            oLama.setJumlah_barang(oBaru.getJumlah_barang());
-            oLama.setSubtotal(oBaru.getJumlah_barang() * harga_barang);
+                oLama.setKode_transaksi(kode_transaksi);
+                oLama.setTanggal_pembelian(formattedDate);
+                oLama.setKode_pelanggan(oBaru.getKode_pelanggan());
+                oLama.setKode_barang(oBaru.getKode_barang());
+                oLama.setJumlah_barang(oBaru.getJumlah_barang());
+                oLama.setTotal(oBaru.getJumlah_barang() * harga_barang);
+                oLama.setPembayaran(oBaru.getPembayaran());
+                oLama.setKembalian(oBaru.getPembayaran() - oBaru.getTotal());
 
-            return "Data order berhasil diperbaharui";
+                or.save(oLama);
 
-            // private Integer jumlah_barang;
-            // private Double subtotal;
-            // private Double total;
-            // private Double pembayaran;
-            // private Double kembalian;
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return "Data order gagal diperbaharui";
+            return false;
         }
     }
 
     @DeleteMapping("/delete/{kode_transaksi}")
-    public @ResponseBody String deleteUser (@PathVariable String kode_transaksi){
-        if(or.existByKodeTransaksi(kode_transaksi)){
+    public @ResponseBody String deleteUser(@PathVariable String kode_transaksi) {
+        if (or.existByKodeTransaksi(kode_transaksi)) {
             or.deleteByKodeTransaksi(kode_transaksi);
             return "Berhasil menghapus pembelian";
-        }
-        else {
+        } else {
             return "Gagal menghapus pembelian";
         }
     }

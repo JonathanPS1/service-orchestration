@@ -11,7 +11,7 @@ public class order {
     private String kode_pelanggan;
     private String kode_barang;
     private Integer jumlah_barang;
-    private Double subtotal;
+    // private Double subtotal;
     private Double total;
     private Double pembayaran;
     private Double kembalian;
@@ -62,14 +62,6 @@ public class order {
 
     public void setJumlah_barang(Integer jumlah_barang) {
         this.jumlah_barang = jumlah_barang;
-    }
-
-    public Double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
     }
 
     public Double getTotal() {
