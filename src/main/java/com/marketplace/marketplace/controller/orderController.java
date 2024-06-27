@@ -36,9 +36,10 @@ public class orderController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = today.format(formatter);
 
+        o.setTotal(o.getJumlahBarang() * harga_barang);
+
         if (o.getPembayaran() >= o.getTotal()) {
-            o.settanggalPembelian(formattedDate);
-            o.setTotal(o.getjumlahBarang() * harga_barang);
+            o.setTanggalPembelian(formattedDate);
             o.setKembalian(o.getPembayaran() - o.getTotal());
             or.insert(o);
             return true;
@@ -59,13 +60,13 @@ public class orderController {
 
                 order oLama = or.findByKodeTransaksi(kodeTransaksi).getFirst();
 
-                oLama.setkodeTransaksi(kodeTransaksi);
-                oLama.settanggalPembelian(formattedDate);
-                oLama.setkodePelanggan(oBaru.getkodePelanggan());
-                oLama.setkodeBarang(oBaru.getkodeBarang());
-                oLama.setjumlahBarang(oBaru.getjumlahBarang());
-                oLama.setTotal(oBaru.getjumlahBarang() * harga_barang);
-                oLama.setPembayaran(oBaru.getPembayaran());
+                oLama.setKodeTransaksi(oBaru.getKodeTransaksi());
+                oLama.setTanggalPembelian(formattedDate);
+                oLama.setKodePelanggan(oBaru.getKodePelanggan());
+                oLama.setKodeBarang(oBaru.getKodeBarang());
+                oLama.setJumlahBarang(oBaru.getJumlahBarang());
+                oLama.setTotal(oBaru.getJumlahBarang() * harga_barang);
+                oLama.setPembayaran(harga_barang);
                 oLama.setKembalian(oBaru.getPembayaran() - oBaru.getTotal());
 
                 or.save(oLama);
@@ -90,7 +91,7 @@ public class orderController {
     }
 
     @PostMapping("/getpelanggan")
-    public @ResponseBody Iterable<order> getPelanggan (@RequestParam String kodePelanggan) {
+    public @ResponseBody Iterable<order> getPelanggan(@RequestParam String kodePelanggan) {
         return or.findByPelanggan(kodePelanggan);
     }
 }
