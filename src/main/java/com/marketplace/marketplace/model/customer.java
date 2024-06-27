@@ -1,19 +1,20 @@
 package com.marketplace.marketplace.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@Entity
 public class customer {
     @Id
-    private String id;
+    private Long id;
     private String nama;
     private String email;
     private String alamat;
     private String no_hp;
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNama() {

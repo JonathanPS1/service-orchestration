@@ -1,7 +1,9 @@
 package com.marketplace.marketplace.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@Entity
 public class product {
     @Id
     private Long id;
