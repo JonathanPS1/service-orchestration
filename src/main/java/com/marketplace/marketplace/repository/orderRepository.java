@@ -10,4 +10,6 @@ public interface orderRepository extends MongoRepository<order, String> {
     public boolean existByKodeTransaksi(String kode_transaksi);
 
     public List<order> findByKodeTransaksi(String kode_transaksi);
+
+    public void deleteByKodeTransaksi(String kode_transaksi);
 }
