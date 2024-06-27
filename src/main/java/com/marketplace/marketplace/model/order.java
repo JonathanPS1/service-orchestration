@@ -6,11 +6,11 @@ public class order {
     @Id
     private String id;
 
-    private String kode_transaksi;
-    private String tanggal_pembelian;
-    private String kode_pelanggan;
-    private String kode_barang;
-    private Integer jumlah_barang;
+    private String kodeTransaksi;
+    private String tanggalPembelian;
+    private String kodePelanggan;
+    private String kodeBarang;
+    private Integer jumlahBarang;
     // private Double subtotal;
     private Double total;
     private Double pembayaran;
@@ -22,46 +22,6 @@ public class order {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getKode_transaksi() {
-        return kode_transaksi;
-    }
-
-    public void setKode_transaksi(String kode_transaksi) {
-        this.kode_transaksi = kode_transaksi;
-    }
-
-    public String getTanggal_pembelian() {
-        return tanggal_pembelian;
-    }
-
-    public void setTanggal_pembelian(String tanggal_pembelian) {
-        this.tanggal_pembelian = tanggal_pembelian;
-    }
-
-    public String getKode_pelanggan() {
-        return kode_pelanggan;
-    }
-
-    public void setKode_pelanggan(String kode_pelanggan) {
-        this.kode_pelanggan = kode_pelanggan;
-    }
-
-    public String getKode_barang() {
-        return kode_barang;
-    }
-
-    public void setKode_barang(String kode_barang) {
-        this.kode_barang = kode_barang;
-    }
-
-    public Integer getJumlah_barang() {
-        return jumlah_barang;
-    }
-
-    public void setJumlah_barang(Integer jumlah_barang) {
-        this.jumlah_barang = jumlah_barang;
     }
 
     public Double getTotal() {
@@ -87,4 +47,45 @@ public class order {
     public void setKembalian(Double kembalian) {
         this.kembalian = kembalian;
     }
+
+    public Integer getJumlahBarang() {
+        return jumlahBarang;
+    }
+
+    public void setJumlahBarang(Integer jumlahBarang) {
+        this.jumlahBarang = jumlahBarang;
+    }
+
+    public String getKodeBarang() {
+        return kodeBarang;
+    }
+
+    public void setKodeBarang(String kodeBarang) {
+        this.kodeBarang = kodeBarang;
+    }
+
+    public String getTanggalPembelian() {
+        return tanggalPembelian;
+    }
+
+    public void setTanggalPembelian(String tanggalPembelian) {
+        this.tanggalPembelian = tanggalPembelian;
+    }
+
+    public String getKodePelanggan() {
+        return kodePelanggan;
+    }
+
+    public void setKodePelanggan(String kodePelanggan) {
+        this.kodePelanggan = kodePelanggan;
+    }
+
+    public String getKodeTransaksi() {
+        return kodeTransaksi;
+    }
+
+    public void setKodeTransaksi(String kodeTransaksi) {
+        this.kodeTransaksi = kodeTransaksi;
+    }
+
 }
