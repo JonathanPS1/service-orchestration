@@ -38,6 +38,7 @@ public class orderController {
         if (o.getPembayaran() >= o.getTotal()) {
             o.setTanggal_pembelian(formattedDate);
             o.setSubtotal(o.getJumlah_barang() * harga_barang);
+            o.setTotal(harga_barang);
             or.insert(o);
             return "Pembelian berhasil";
         } else {
@@ -46,7 +47,8 @@ public class orderController {
     }
 
     @PutMapping("/updateOrder/{kode_transaksi}")
-    public @ResponseBody String updateOrder(@PathVariable String kode_transaksi, @RequestBody order oBaru) {
+    public @ResponseBody String updateOrder(@PathVariable String kode_transaksi, @RequestBody order oBaru,
+            Double harga_barang) {
         if (or.existByKodeTransaksi(kode_transaksi)) {
             // Mendapatkan tanggal hari ini
             LocalDate today = LocalDate.now();
@@ -60,6 +62,7 @@ public class orderController {
             oLama.setKode_pelanggan(oBaru.getKode_pelanggan());
             oLama.setKode_barang(oBaru.getKode_barang());
             oLama.setJumlah_barang(oBaru.getJumlah_barang());
+            oLama.setSubtotal(oBaru.getJumlah_barang() * harga_barang);
 
             return "Data order berhasil diperbaharui";
 
@@ -68,6 +71,8 @@ public class orderController {
             // private Double total;
             // private Double pembayaran;
             // private Double kembalian;
+        } else {
+            return "Data order gagal diperbaharui";
         }
     }
 }
