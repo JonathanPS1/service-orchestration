@@ -51,7 +51,7 @@ public class orderController {
     @PutMapping("/updateOrder/{kodeTransaksi}")
     public @ResponseBody boolean updateOrder(@PathVariable String kodeTransaksi, @RequestBody order oBaru,
             Double harga_barang) {
-        if (or.existByKodeTransaksi(kodeTransaksi)) {
+        if (or.existsByKodeTransaksi(kodeTransaksi)) {
             if (oBaru.getPembayaran() >= oBaru.getTotal()) {
                 // Mendapatkan tanggal hari ini
                 LocalDate today = LocalDate.now();
@@ -82,7 +82,7 @@ public class orderController {
 
     @DeleteMapping("/delete/{kodeTransaksi}")
     public @ResponseBody String deleteUser(@PathVariable String kodeTransaksi) {
-        if (or.existByKodeTransaksi(kodeTransaksi)) {
+        if (or.existsByKodeTransaksi(kodeTransaksi)) {
             or.deleteByKodeTransaksi(kodeTransaksi);
             return "Berhasil menghapus pembelian";
         } else {

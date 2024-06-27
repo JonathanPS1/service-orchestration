@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.Query;
 import com.marketplace.marketplace.model.order;
 
 public interface orderRepository extends MongoRepository<order, String> {
-    public boolean existByKodeTransaksi(String kodeTransaksi);
+    public boolean existsByKodeTransaksi(String kodeTransaksi);
 
     public List<order> findByKodeTransaksi(String kodeTransaksi);
 
