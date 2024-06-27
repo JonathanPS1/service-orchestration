@@ -15,7 +15,7 @@ import com.marketplace.marketplace.model.order;
 import com.marketplace.marketplace.repository.orderRepository;
 
 @Controller
-@RequestMapping(path = "/order")
+@RequestMapping("/order")
 public class orderController {
     @Autowired
     private orderRepository or;
@@ -40,4 +40,6 @@ public class orderController {
             return "Pembelian gagal";
         }
     }
+
+    // @PutMapping("/update/")
 }

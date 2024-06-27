@@ -1,6 +1,6 @@
 package com.marketplace.marketplace.model;
 
-import jakarta.persistence.Id;
+import org.springframework.data.annotation.Id;
 
 public class order {
     @Id
