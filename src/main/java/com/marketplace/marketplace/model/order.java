@@ -24,6 +24,46 @@ public class order {
         this.id = id;
     }
 
+    public String getKodeTransaksi() {
+        return kodeTransaksi;
+    }
+
+    public void setKodeTransaksi(String kodeTransaksi) {
+        this.kodeTransaksi = kodeTransaksi;
+    }
+
+    public String getTanggalPembelian() {
+        return tanggalPembelian;
+    }
+
+    public void setTanggalPembelian(String tanggalPembelian) {
+        this.tanggalPembelian = tanggalPembelian;
+    }
+
+    public String getKodePelanggan() {
+        return kodePelanggan;
+    }
+
+    public void setKodePelanggan(String kodePelanggan) {
+        this.kodePelanggan = kodePelanggan;
+    }
+
+    public String getKodeBarang() {
+        return kodeBarang;
+    }
+
+    public void setKodeBarang(String kodeBarang) {
+        this.kodeBarang = kodeBarang;
+    }
+
+    public Integer getJumlahBarang() {
+        return jumlahBarang;
+    }
+
+    public void setJumlahBarang(Integer jumlahBarang) {
+        this.jumlahBarang = jumlahBarang;
+    }
+
     public Double getTotal() {
         return total;
     }
@@ -47,45 +87,4 @@ public class order {
     public void setKembalian(Double kembalian) {
         this.kembalian = kembalian;
     }
-
-    public Integer getJumlahBarang() {
-        return jumlahBarang;
-    }
-
-    public void setJumlahBarang(Integer jumlahBarang) {
-        this.jumlahBarang = jumlahBarang;
-    }
-
-    public String getKodeBarang() {
-        return kodeBarang;
-    }
-
-    public void setKodeBarang(String kodeBarang) {
-        this.kodeBarang = kodeBarang;
-    }
-
-    public String getTanggalPembelian() {
-        return tanggalPembelian;
-    }
-
-    public void setTanggalPembelian(String tanggalPembelian) {
-        this.tanggalPembelian = tanggalPembelian;
-    }
-
-    public String getKodePelanggan() {
-        return kodePelanggan;
-    }
-
-    public void setKodePelanggan(String kodePelanggan) {
-        this.kodePelanggan = kodePelanggan;
-    }
-
-    public String getKodeTransaksi() {
-        return kodeTransaksi;
-    }
-
-    public void setKodeTransaksi(String kodeTransaksi) {
-        this.kodeTransaksi = kodeTransaksi;
-    }
-
 }
