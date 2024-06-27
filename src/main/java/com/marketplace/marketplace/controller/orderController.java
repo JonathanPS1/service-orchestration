@@ -28,6 +28,11 @@ public class orderController {
         return or.findAll();
     }
 
+    @PostMapping("/addCart")
+    public @ResponseBody String addCart(@RequestBody order o, Double harga_barang) {
+
+    }
+
     @PostMapping("/addOrder")
     public @ResponseBody String addOrder(@RequestBody order o, Double harga_barang) {
         // Mendapatkan tanggal hari ini
