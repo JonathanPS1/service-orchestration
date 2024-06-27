@@ -8,12 +8,12 @@ import org.springframework.data.mongodb.repository.Query;
 import com.marketplace.marketplace.model.order;
 
 public interface orderRepository extends MongoRepository<order, String> {
-    public boolean existsByKodeTransaksi(String kodeTransaksi);
-
     public List<order> findByKodeTransaksi(String kodeTransaksi);
+
+    public boolean existsByKodeTransaksi(String kodeTransaksi);
 
     public void deleteByKodeTransaksi(String kodeTransaksi);
 
-    @Query("{'kode_pelanggan' : ?0 }") // ?0 indeks parameter pertama
+    @Query("{'kodePelanggan' : ?0 }") // ?0 indeks parameter pertama
     List<order> findByPelanggan(String kodePelanggan);
 }
