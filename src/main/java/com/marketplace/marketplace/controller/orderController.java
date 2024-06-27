@@ -30,7 +30,7 @@ public class orderController {
     }
 
     @PostMapping("/addOrder")
-    public @ResponseBody boolean addOrder(@RequestBody order o, Double harga_barang) {
+    public @ResponseBody boolean addOrder(@RequestBody order o, @RequestParam Double harga_barang) {
         // Mendapatkan tanggal hari ini
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -49,25 +49,26 @@ public class orderController {
     }
 
     @PutMapping("/updateOrder/{kodeTransaksi}")
-    public @ResponseBody boolean updateOrder(@PathVariable String kodeTransaksi, @RequestBody order oBaru,
-            Double harga_barang) {
+    public @ResponseBody boolean updateOrder(@PathVariable String kodeTransaksi,
+            @RequestBody order oBaru,
+            @RequestParam Double harga_barang) {
+        // Mendapatkan tanggal hari ini
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = today.format(formatter);
+
         if (or.existsByKodeTransaksi(kodeTransaksi)) {
-            if (oBaru.getPembayaran() >= oBaru.getTotal()) {
-                // Mendapatkan tanggal hari ini
-                LocalDate today = LocalDate.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                String formattedDate = today.format(formatter);
+            order oLama = or.findByKodeTransaksi(kodeTransaksi).getFirst();
+            oLama.setTotal(oBaru.getJumlahBarang() * harga_barang);
 
-                order oLama = or.findByKodeTransaksi(kodeTransaksi).getFirst();
-
-                oLama.setKodeTransaksi(oBaru.getKodeTransaksi());
+            if (oBaru.getPembayaran() >= oLama.getTotal()) {
+                oLama.setKodeTransaksi(kodeTransaksi);
                 oLama.setTanggalPembelian(formattedDate);
                 oLama.setKodePelanggan(oBaru.getKodePelanggan());
                 oLama.setKodeBarang(oBaru.getKodeBarang());
                 oLama.setJumlahBarang(oBaru.getJumlahBarang());
-                oLama.setTotal(oBaru.getJumlahBarang() * harga_barang);
-                oLama.setPembayaran(harga_barang);
-                oLama.setKembalian(oBaru.getPembayaran() - oBaru.getTotal());
+                oLama.setPembayaran(oBaru.getPembayaran());
+                oLama.setKembalian(oBaru.getPembayaran() - oLama.getTotal());
 
                 or.save(oLama);
 

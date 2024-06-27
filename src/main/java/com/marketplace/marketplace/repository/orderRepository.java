@@ -18,5 +18,5 @@ public interface orderRepository extends MongoRepository<order, String> {
     List<order> findByPelanggan(String kodePelanggan);
 
     @Query("{'tanggalPembelian' : ?0 }")
-    List<order>findByTglPembelian(String tanggalPembelian);
+    List<order> findByTglPembelian(String tanggalPembelian);
 }
