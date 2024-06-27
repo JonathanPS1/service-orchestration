@@ -41,5 +41,10 @@ public class orderController {
         }
     }
 
-    // @PutMapping("/update/")
+    @PutMapping("/update/{kode_transaksi}")
+    public @ResponseBody String updateOrder(@PathVariable String kode_transaksi, @RequestBody order oBaru) {
+        if (or.existByKodeTransaksi(kode_transaksi)) {
+
+        }
+    }
 }
