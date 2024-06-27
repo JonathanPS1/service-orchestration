@@ -75,4 +75,15 @@ public class orderController {
             return "Data order gagal diperbaharui";
         }
     }
+
+    @DeleteMapping("/delete/{kode_transaksi}")
+    public @ResponseBody String deleteUser (@PathVariable String kode_transaksi){
+        if(or.existByKodeTransaksi(kode_transaksi)){
+            or.deleteByKodeTransaksi(kode_transaksi);
+            return "Berhasil menghapus pembelian";
+        }
+        else {
+            return "Gagal menghapus pembelian";
+        }
+    }
 }
